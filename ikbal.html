@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D&amp;I — Custom Menu untuk Cafe &amp; Resto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--navy:#0F172A;
+--navy-2:#141F38;
+--navy-3:#1B2744;
+--gold:#D4AF37;
+--gold-soft:#E8CE7A;
+--white:#FFFFFF;
+--muted:#94A3B8;
+--line:rgba(212,175,55,.20);
+--soft-line:rgba(255,255,255,.08);
+--radius:16px;
+--radius-sm:12px;
+--shadow:0 20px 45px rgba(0,0,0,.35);
+--shadow-gold:0 18px 45px rgba(212,175,55,.16);
+--section:110px;
+--font-h:'Playfair Display',serif;
+--font-b:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--navy);color:var(--white);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font-family:inherit;font-size:inherit;outline:none;border:none;background:none;color:inherit}
+ul{list-style:none}
+h1,h2,h3,h4{font-family:var(--font-h);font-weight:600;line-height:1.22;letter-spacing:.2px}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:var(--section) 0;position:relative}
+.sec-head{max-width:720px;margin:0 auto 64px;text-align:center}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;position:relative;padding-left:34px}
+.eyebrow::before{content:'';position:absolute;left:0;top:50%;width:24px;height:1px;background:var(--gold);transform:translateY(-50%)}
+.sec-head .eyebrow{padding-left:0}
+.sec-head .eyebrow::before{display:none}
+.sec-head h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:16px}
+.sec-sub{color:var(--muted);font-size:16px;font-weight:300}
+.gold{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal.show{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:var(--radius-sm);font-size:14.5px;font-weight:600;letter-spacing:.4px;cursor:pointer;transition:all .3s ease;white-space:nowrap}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#B9952B);color:#141F38;box-shadow:0 12px 30px rgba(212,175,55,.22)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(212,175,55,.38);background:linear-gradient(135deg,var(--gold-soft),var(--gold))}
+.btn-outline{border:1px solid rgba(255,255,255,.22);color:var(--white)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);background:rgba(212,175,55,.06)}
+.btn-ghost{border:1px solid var(--gold);color:var(--gold)}
+.btn-ghost:hover{background:var(--gold);color:#141F38;transform:translateY(-3px)}
+.btn-sm{padding:11px 22px;font-size:13.5px}
+
+.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:22px 0;transition:all .35s ease;border-bottom:1px solid transparent}
+.nav.scrolled{padding:12px 0;background:rgba(15,23,42,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:26px}
+.logo{font-family:var(--font-h);font-size:27px;font-weight:700;letter-spacing:1.5px;display:flex;align-items:center;gap:2px}
+.logo em{color:var(--gold);font-style:normal}
+.logo-mark{width:38px;height:38px;border:1px solid var(--line);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-right:10px;background:rgba(212,175,55,.07);font-family:var(--font-h);font-weight:700}
+.nav-menu{display:flex;align-items:center;gap:30px}
+.nav-menu a{font-size:14.5px;font-weight:500;color:#CBD5E1;position:relative;padding:4px 0;transition:color .3s ease}
+.nav-menu a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--gold);transition:width .3s ease}
+.nav-menu a:hover{color:var(--gold)}
+.nav-menu a:hover::after{width:100%}
+.burger{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--soft-line);flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:all .3s ease;background:rgba(255,255,255,.03)}
+.burger span{display:block;width:19px;height:1.8px;background:var(--white);border-radius:2px;transition:all .3s ease}
+.burger.active{border-color:var(--gold)}
+.burger.active span:nth-child(1){transform:translateY(6.8px) rotate(45deg);background:var(--gold)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-6.8px) rotate(-45deg);background:var(--gold)}
+
+.hero{position:relative;padding:180px 0 120px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 80% 15%,rgba(212,175,55,.16),transparent 45%),radial-gradient(circle at 12% 78%,rgba(212,175,55,.09),transparent 42%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 8%,transparent 72%);mask-image:radial-gradient(ellipse at 50% 42%,#000 8%,transparent 72%)}
+.hero-glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.16),transparent 68%);top:-120px;right:-120px;filter:blur(20px)}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(34px,4.6vw,58px);margin-bottom:24px}
+.hero h1 span{color:var(--gold);position:relative}
+.hero h1 span::after{content:'';position:absolute;left:0;bottom:6px;width:100%;height:8px;background:rgba(212,175,55,.14);z-index:-1}
+.hero-sub{color:var(--muted);font-size:17px;font-weight:300;max-width:540px;margin-bottom:38px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
+.hero-facts{display:flex;gap:46px;flex-wrap:wrap}
+.fact b{display:block;font-family:var(--font-h);font-size:30px;color:var(--gold);line-height:1.2}
+.fact span{font-size:13px;color:var(--muted);letter-spacing:.4px}
+.mock-wrap{position:relative;display:flex;justify-content:center;padding:20px 0}
+.mock{position:relative;width:100%;max-width:400px;background:linear-gradient(165deg,#1B2744,#0B1220);border:1px solid var(--line);border-radius:var(--radius);padding:36px 32px;box-shadow:0 34px 80px rgba(0,0,0,.6);animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.mock-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mock-logo{font-family:var(--font-h);font-size:24px;font-weight:700;letter-spacing:1px}
+.mock-logo em{color:var(--gold);font-style:normal}
+.mock-tag{font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);padding:5px 10px;border-radius:20px}
+.mock-rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0 24px}
+.mock-item{display:flex;align-items:baseline;gap:10px;margin-bottom:17px;font-size:14px}
+.mock-item span{color:#E2E8F0;font-weight:500}
+.mock-item i{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);transform:translateY(-4px)}
+.mock-item b{color:var(--gold);font-weight:600;font-size:13.5px}
+.mock-note{margin-top:26px;font-size:11.5px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;text-align:center}
+.float-card{position:absolute;right:-6px;bottom:12px;background:rgba(20,31,56,.94);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 20px;box-shadow:var(--shadow);backdrop-filter:blur(10px);animation:floaty 5s ease-in-out infinite reverse}
+.float-card b{display:block;font-family:var(--font-h);font-size:22px;color:var(--gold)}
+.float-card span{font-size:11.5px;color:var(--muted);letter-spacing:.6px}
+
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--soft-line);border-radius:var(--radius);padding:34px 30px;transition:all .35s ease;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.card:hover{transform:translateY(-8px);border-color:var(--line);box-shadow:var(--shadow-gold);background:linear-gradient(160deg,rgba(212,175,55,.07),rgba(255,255,255,.015))}
+.card:hover::before{transform:scaleX(1)}
+.icon-box{width:54px;height:54px;border-radius:13px;background:rgba(212,175,55,.10);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:all .35s ease}
+.card:hover .icon-box{background:rgba(212,175,55,.2);transform:rotate(-6deg)}
+.icon-box svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:21px;margin-bottom:12px}
+.card p{color:var(--muted);font-size:14.6px;font-weight:300}
+
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:46px}
+.tab{padding:10px 24px;border-radius:30px;border:1px solid var(--soft-line);font-size:13.5px;font-weight:500;color:#CBD5E1;cursor:pointer;transition:all .3s ease;background:rgba(255,255,255,.02)}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab.active{background:var(--gold);border-color:var(--gold);color:#141F38;font-weight:600;box-shadow:0 10px 24px rgba(212,175,55,.25)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:26px}
+.menu-card{background:rgba(255,255,255,.03);border:1px solid var(--soft-line);border-radius:var(--radius);overflow:hidden;transition:all .35s ease}
+.menu-card:hover{transform:translateY(-6px);border-color:var(--line);box-shadow:var(--shadow)}
+.menu-card.hide{display:none}
+.mc-img{height:180px;position:relative;overflow:hidden;transition:transform .5s ease}
+.mc-img::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.16),transparent 60%),linear-gradient(180deg,transparent 40%,rgba(11,18,32,.75))}
+.mc-kopi{background:linear-gradient(140deg,#3A2718,#6B4826)}
+.mc-nonkopi{background:linear-gradient(140deg,#12302A,#1F5C4A)}
+.mc-utama{background:linear-gradient(140deg,#2C1A1A,#5E2F2F)}
+.mc-dessert{background:linear-gradient(140deg,#2A1F2E,#5B3A56)}
+.mc-snack{background:linear-gradient(140deg,#2A2418,#5C4A22)}
+.menu-card:hover .mc-img{transform:scale(1.09)}
+.mc-body{padding:22px 24px 26px}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}
+.mc-body h4{font-size:18.5px}
+.mc-price{font-family:var(--font-h);color:var(--gold);font-size:17px;font-weight:600;white-space:nowrap}
+.mc-body p{font-size:13.6px;color:var(--muted);font-weight:300;line-height:1.65}
+.mc-cat{display:inline-block;margin-top:16px;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);padding:4px 11px;border-radius:20px}
+
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:stretch}
+.price-card{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--soft-line);border-radius:var(--radius);padding:42px 34px;display:flex;flex-direction:column;transition:all .35s ease;position:relative}
+.price-card:hover{transform:translateY(-8px);border-color:var(--line);box-shadow:var(--shadow-gold)}
+.price-card.popular{border-color:var(--gold);background:linear-gradient(165deg,rgba(212,175,55,.12),rgba(255,255,255,.015));box-shadow:var(--shadow-gold);transform:scale(1.02)}
+.price-card.popular:hover{transform:scale(1.02) translateY(-8px)}
+.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#141F38;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;padding:6px 18px;border-radius:20px;white-space:nowrap}
+.price-card h3{font-size:22px;margin-bottom:8px}
+.price-desc{font-size:13.6px;color:var(--muted);font-weight:300;margin-bottom:26px}
+.price{font-family:var(--font-h);font-size:38px;color:var(--gold);line-height:1.1;margin-bottom:6px}
+.price small{font-family:var(--font-b);font-size:13px;color:var(--muted);font-weight:400}
+.price-rule{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:26px 0}
+.feature-list{margin-bottom:34px;flex:1}
+.feature-list li{display:flex;gap:12px;align-items:flex-start;font-size:14.2px;color:#CBD5E1;margin-bottom:14px;font-weight:300}
+.feature-list svg{width:17px;height:17px;flex-shrink:0;margin-top:5px;stroke:var(--gold);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.price-card .btn{width:100%}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative}
+.steps::before{content:'';position:absolute;top:33px;left:11%;right:11%;height:1px;background:linear-gradient(90deg,transparent,var(--line),var(--line),transparent)}
+.step{text-align:center;position:relative}
+.step-num{width:66px;height:66px;border-radius:50%;background:var(--navy);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:23px;color:var(--gold);margin:0 auto 24px;transition:all .35s ease;position:relative;z-index:1}
+.step:hover .step-num{background:var(--gold);color:#141F38;transform:translateY(-5px);box-shadow:0 16px 34px rgba(212,175,55,.3)}
+.step h4{font-size:19px;margin-bottom:10px}
+.step p{font-size:14px;color:var(--muted);font-weight:300}
+
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pf-item{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;border:1px solid var(--soft-line);cursor:pointer;transition:all .35s ease}
+.pf-item:hover{border-color:var(--gold);transform:translateY(-6px)}
+.pf-bg{position:absolute;inset:0;transition:transform .6s ease}
+.pf-item:hover .pf-bg{transform:scale(1.08)}
+.pf-1{background:linear-gradient(140deg,#2A1E14,#6B4A2A)}
+.pf-2{background:linear-gradient(140deg,#12302A,#1F5C4A)}
+.pf-3{background:linear-gradient(140deg,#2C1A1A,#5E2F2F)}
+.pf-4{background:linear-gradient(140deg,#2A1F2E,#5B3A56)}
+.pf-5{background:linear-gradient(140deg,#1A2338,#3A4A6B)}
+.pf-6{background:linear-gradient(140deg,#2A2418,#5C4A22)}
+.pf-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.1),rgba(11,18,32,.92));opacity:0;transition:opacity .4s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.pf-item:hover .pf-overlay{opacity:1}
+.pf-overlay h4{font-size:20px;margin-bottom:4px;transform:translateY(12px);transition:transform .4s ease}
+.pf-overlay span{font-size:12.5px;color:var(--gold);letter-spacing:1.8px;text-transform:uppercase;transform:translateY(12px);transition:transform .4s ease .06s}
+.pf-item:hover .pf-overlay h4,.pf-item:hover .pf-overlay span{transform:none}
+
+.dash{background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid var(--soft-line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow)}
+.dash-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid var(--soft-line);margin-bottom:28px}
+.dash-brand{display:flex;align-items:center;gap:14px}
+.dash-brand .logo-mark{margin-right:0}
+.dash-brand b{font-family:var(--font-h);font-size:18px;display:block;line-height:1.4}
+.dash-brand span{font-size:12.5px;color:var(--muted)}
+.dash-user{display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(140deg,var(--gold),#8C6F1E);display:flex;align-items:center;justify-content:center;font-weight:600;color:#141F38;font-size:15px}
+.dash-user b{font-size:14px;display:block;line-height:1.4}
+.dash-user span{font-size:12px;color:var(--muted)}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:26px}
+.stat{background:rgba(255,255,255,.035);border:1px solid var(--soft-line);border-radius:var(--radius-sm);padding:22px;transition:all .3s ease}
+.stat:hover{border-color:var(--line);transform:translateY(-4px)}
+.stat span{font-size:12.5px;color:var(--muted);display:block;margin-bottom:8px;letter-spacing:.4px}
+.stat b{font-family:var(--font-h);font-size:28px;color:var(--gold);line-height:1.1}
+.stat i{font-style:normal;font-size:12px;color:#4ADE80;margin-left:6px}
+.dash-body{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
+.panel{background:rgba(255,255,255,.03);border:1px solid var(--soft-line);border-radius:var(--radius-sm);padding:26px}
+.panel h4{font-size:17px;margin-bottom:20px}
+.proj{margin-bottom:20px}
+.proj-top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:9px}
+.proj-top span{color:#CBD5E1}
+.proj-top b{color:var(--gold);font-weight:600}
+.bar{height:7px;border-radius:20px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#B9952B,var(--gold-soft))}
+.act{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13.5px;color:#CBD5E1}
+.act:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:9px}
+.act span{color:var(--muted);font-size:12px;display:block}
+
+.t-viewport{overflow:hidden;max-width:860px;margin:0 auto}
+.t-track{display:flex;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.t-slide{min-width:100%;padding:6px 12px}
+.t-card{background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid var(--soft-line);border-radius:var(--radius);padding:44px 42px;text-align:center}
+.stars{display:flex;justify-content:center;gap:5px;margin-bottom:22px}
+.stars svg{width:17px;height:17px;fill:var(--gold)}
+.t-card p{font-size:17px;font-weight:300;color:#E2E8F0;font-style:italic;line-height:1.85;margin-bottom:30px}
+.t-person{display:flex;align-items:center;justify-content:center;gap:14px}
+.t-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;color:#141F38;font-size:16px}
+.av-1{background:linear-gradient(140deg,#D4AF37,#8C6F1E)}
+.av-2{background:linear-gradient(140deg,#7FB3A0,#3C6E5C)}
+.av-3{background:linear-gradient(140deg,#C08BB5,#7A4C70)}
+.t-person b{display:block;font-size:15px;text-align:left}
+.t-person span{font-size:12.8px;color:var(--gold);text-align:left;display:block}
+.t-dots{display:flex;justify-content:center;gap:10px;margin-top:34px}
+.t-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .3s ease;border:none}
+.t-dot.active{background:var(--gold);width:28px;border-radius:20px}
+
+.faq-wrap{max-width:860px;margin:0 auto}
+.faq-item{border:1px solid var(--soft-line);border-radius:var(--radius-sm);margin-bottom:14px;overflow:hidden;transition:all .3s ease;background:rgba(255,255,255,.025)}
+.faq-item:hover{border-color:var(--line)}
+.faq-item.open{border-color:var(--gold);background:rgba(212,175,55,.05)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;cursor:pointer;text-align:left;font-size:16px;font-weight:500;transition:color .3s ease;color:var(--white)}
+.faq-item.open .faq-q{color:var(--gold)}
+.faq-icon{width:26px;height:26px;flex-shrink:0;border-radius:50%;border:1px solid var(--line);position:relative;transition:all .3s ease}
+.faq-icon::before,.faq-icon::after{content:'';position:absolute;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%);transition:all .3s ease}
+.faq-icon::before{width:11px;height:1.6px}
+.faq-icon::after{width:1.6px;height:11px}
+.faq-item.open .faq-icon{background:var(--gold)}
+.faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#141F38}
+.faq-item.open .faq-icon::after{height:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-a p{padding:0 26px 24px;color:var(--muted);font-size:14.6px;font-weight:300;line-height:1.8}
+
+.contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+.form-card{background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid var(--soft-line);border-radius:var(--radius);padding:40px 36px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:13px;font-weight:500;letter-spacing:.5px;color:#CBD5E1;margin-bottom:9px}
+.field input,.field select,.field textarea{width:100%;background:rgba(11,18,32,.6);border:1px solid var(--soft-line);border-radius:var(--radius-sm);padding:14px 16px;font-size:14.5px;color:var(--white);transition:all .3s ease}
+.field textarea{resize:vertical;min-height:120px}
+.field input::placeholder,.field textarea::placeholder{color:#64748B}
+.field select option{background:#141F38;color:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.field input.invalid,.field select.invalid,.field textarea.invalid{border-color:#EF4444;box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+.err{display:block;font-size:12.2px;color:#F87171;margin-top:7px;min-height:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-note{margin-top:18px;padding:14px 18px;border-radius:var(--radius-sm);font-size:13.8px;display:none}
+.form-note.show{display:block}
+.form-note.ok{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35);color:#86EFAC}
+.form-note.bad{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.35);color:#FCA5A5}
+.info-card{background:rgba(255,255,255,.03);border:1px solid var(--soft-line);border-radius:var(--radius);padding:32px 30px;margin-bottom:22px}
+.info-item{display:flex;gap:16px;margin-bottom:24px}
+.info-item:last-child{margin-bottom:0}
+.info-icon{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:rgba(212,175,55,.1);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.info-icon svg{width:19px;height:19px;stroke:var(--gold);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.info-item b{display:block;font-size:14.5px;margin-bottom:3px}
+.info-item span{font-size:13.6px;color:var(--muted);font-weight:300}
+.map{height:220px;border-radius:var(--radius);border:1px solid var(--soft-line);position:relative;overflow:hidden;background:linear-gradient(140deg,#141F38,#0B1220)}
+.map::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:34px 34px}
+.map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.map-pin svg{width:34px;height:34px;stroke:var(--gold);fill:rgba(212,175,55,.18);stroke-width:1.6}
+.map-pin span{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)}
+
+.footer{border-top:1px solid var(--soft-line);padding:80px 0 0;background:linear-gradient(180deg,rgba(20,31,56,.4),transparent)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:44px;padding-bottom:56px}
+.footer h5{font-size:15px;font-family:var(--font-b);font-weight:600;letter-spacing:.6px;margin-bottom:22px}
+.footer-brand p{color:var(--muted);font-size:14px;font-weight:300;margin:20px 0 24px;max-width:300px}
+.footer-links li{margin-bottom:12px}
+.footer-links a{font-size:14px;color:var(--muted);transition:all .3s ease;font-weight:300}
+.footer-links a:hover{color:var(--gold);padding-left:5px}
+.socials{display:flex;gap:12px}
+.social{width:40px;height:40px;border-radius:11px;border:1px solid var(--soft-line);display:flex;align-items:center;justify-content:center;transition:all .3s ease}
+.social svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s ease}
+.social:hover{border-color:var(--gold);transform:translateY(-3px);background:rgba(212,175,55,.08)}
+.social:hover svg{stroke:var(--gold)}
+.news{display:flex;gap:10px;margin-top:6px}
+.news input{flex:1;background:rgba(11,18,32,.6);border:1px solid var(--soft-line);border-radius:var(--radius-sm);padding:13px 15px;font-size:13.6px;color:#fff;transition:all .3s ease}
+.news input:focus{border-color:var(--gold)}
+.news button{padding:0 20px;border-radius:var(--radius-sm);background:var(--gold);color:#141F38;font-weight:600;font-size:13.5px;cursor:pointer;transition:all .3s ease}
+.news button:hover{background:var(--gold-soft);transform:translateY(-2px)}
+.news-msg{font-size:12.5px;color:var(--gold);margin-top:10px;display:none}
+.news-msg.show{display:block}
+.footer-bottom{border-top:1px solid var(--soft-line);padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.footer-bottom p{font-size:13.4px;color:var(--muted);font-weight:300}
+.footer-bottom div{display:flex;gap:24px}
+.footer-bottom a{font-size:13.4px;color:var(--muted);transition:color .3s ease}
+.footer-bottom a:hover{color:var(--gold)}
+
+.to-top{position:fixed;right:26px;bottom:26px;width:50px;height:50px;border-radius:14px;background:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(16px);transition:all .35s ease;z-index:900;box-shadow:0 14px 32px rgba(212,175,55,.3)}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{transform:translateY(-4px);background:var(--gold-soft)}
+.to-top svg{width:20px;height:20px;stroke:#141F38;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+@media (max-width:1080px){
+.hero-inner{grid-template-columns:1fr;gap:56px}
+.hero{padding:150px 0 90px}
+.mock-wrap{order:-1}
+.contact-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+.dash-body{grid-template-columns:1fr}
+}
+@media (max-width:980px){
+:root{--section:80px}
+.burger{display:flex}
+.nav-menu{position:fixed;top:0;right:-100%;width:min(320px,86%);height:100vh;flex-direction:column;justify-content:center;align-items:flex-start;gap:26px;background:rgba(11,18,32,.98);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-left:1px solid var(--line);padding:60px 40px;transition:right .45s cubic-bezier(.22,.61,.36,1);box-shadow:-20px 0 60px rgba(0,0,0,.5)}
+.nav-menu.open{right:0}
+.nav-menu a{font-size:17px}
+.steps{grid-template-columns:1fr 1fr;gap:40px 24px}
+.steps::before{display:none}
+.portfolio{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+.sec-head{margin-bottom:46px}
+.grid-3{grid-template-columns:1fr}
+.menu-grid{grid-template-columns:1fr}
+.price-grid{grid-template-columns:1fr}
+.price-card.popular{transform:none}
+.price-card.popular:hover{transform:translateY(-8px)}
+.form-row{grid-template-columns:1fr}
+.form-card{padding:30px 24px}
+.t-card{padding:34px 26px}
+.t-card p{font-size:15.4px}
+.pf-overlay{opacity:1;background:linear-gradient(180deg,transparent,rgba(11,18,32,.94))}
+.dash{padding:24px}
+.hero-facts{gap:30px}
+.fact b{font-size:25px}
+.footer-grid{grid-template-columns:1fr;gap:36px}
+}
+@media (max-width:620px){
+.nav-cta{display:none}
+.steps{grid-template-columns:1fr}
+.portfolio{grid-template-columns:1fr}
+.float-card{right:0;bottom:-14px;padding:13px 16px}
+.mock{padding:28px 24px}
+.to-top{right:16px;bottom:16px;width:46px;height:46px}
+.hero-actions .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+<div class="container nav-inner">
+<a href="#beranda" class="logo"><span class="logo-mark">D<em>&amp;</em>I</span></a>
+<ul class="nav-menu" id="navMenu">
+<li><a href="#beranda">Beranda</a></li>
+<li><a href="#layanan">Layanan</a></li>
+<li><a href="#menu">Menu Contoh</a></li>
+<li><a href="#harga">Paket Harga</a></li>
+<li><a href="#testimoni">Testimoni</a></li>
+<li><a href="#kontak">Kontak</a></li>
+</ul>
+<a href="#kontak" class="btn btn-gold btn-sm nav-cta">Konsultasi Gratis</a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</header>
+
+<section class="hero" id="beranda">
+<div class="hero-bg"></div>
+<div class="hero-grid"></div>
+<div class="hero-glow"></div>
+<div class="container hero-inner">
+<div class="hero-text reveal">
+<span class="eyebrow">Custom Menu untuk Cafe &amp; Resto</span>
+<h1>Rancang Menu Cafe &amp; Resto Anda Bersama <span>D&amp;I</span></h1>
+<p class="hero-sub">Kami membantu bisnis kuliner Anda tampil profesional dengan desain menu custom yang menggugah selera.</p>
+<div class="hero-actions">
+<a href="#kontak" class="btn btn-gold">Mulai Sekarang</a>
+<a href="#portofolio" class="btn btn-outline">Lihat Portofolio</a>
+</div>
+<div class="hero-facts">
+<div class="fact"><b>320+</b><span>Menu Dirancang</span></div>
+<div class="fact"><b>180+</b><span>Cafe &amp; Resto</span></div>
+<div class="fact"><b>4.9/5</b><span>Rating Klien</span></div>
+</div>
+</div>
+<div class="mock-wrap reveal">
+<div class="mock">
+<div class="mock-top">
+<span class="mock-logo">D<em>&amp;</em>I</span>
+<span class="mock-tag">Signature</span>
+</div>
+<div class="mock-rule"></div>
+<div class="mock-item"><span>Espresso Gayo</span><i></i><b>22K</b></div>
+<div class="mock-item"><span>Caramel Latte</span><i></i><b>32K</b></div>
+<div class="mock-item"><span>Matcha Cloud</span><i></i><b>34K</b></div>
+<div class="mock-item"><span>Nasi Goreng Signature</span><i></i><b>45K</b></div>
+<div class="mock-item"><span>Basque Cheesecake</span><i></i><b>38K</b></div>
+<div class="mock-rule"></div>
+<p class="mock-note">Didesain oleh D&amp;I Studio</p>
+</div>
+<div class="float-card">
+<b>14 Hari</b>
+<span>Rata-rata Pengerjaan</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="layanan">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Layanan Kami</span>
+<h2>Solusi Lengkap untuk Identitas Kuliner Anda</h2>
+<p class="sec-sub">Dari desain cetak hingga strategi menu, semua dikerjakan oleh tim yang memahami industri kuliner.</p>
+</div>
+<div class="grid-3">
+<div class="card reveal">
+<div class="icon-box"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+<h3>Desain Menu Cetak</h3>
+<p>Menu fisik dengan pilihan hardcover, softcover, laminasi doff maupun glossy yang tahan lama dan tampil premium.</p>
+</div>
+<div class="card reveal" style="transition-delay:.08s">
+<div class="icon-box"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1M14 20h1M20 14h1"/></svg></div>
+<h3>Menu Digital QR Code</h3>
+<p>Menu digital interaktif berbasis QR Code yang mudah diperbarui kapan saja tanpa biaya cetak ulang.</p>
+</div>
+<div class="card reveal" style="transition-delay:.16s">
+<div class="icon-box"><svg viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1.3-2h6l1.3 2h1.7A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.5"/></svg></div>
+<h3>Food Photography</h3>
+<p>Sesi foto makanan profesional dengan penataan dan pencahayaan yang membuat setiap hidangan tampil menggugah selera.</p>
+</div>
+<div class="card reveal">
+<div class="icon-box"><svg viewBox="0 0 24 24"><path d="M3 4h18v11H3z"/><path d="M7 19h10M12 15v4"/><path d="M7 8h5M7 11h8"/></svg></div>
+<h3>Menu Board &amp; Signage</h3>
+<p>Desain menu board, neon sign, dan signage resto yang konsisten dengan identitas brand Anda.</p>
+</div>
+<div class="card reveal" style="transition-delay:.08s">
+<div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+<h3>Branding &amp; Logo Resto</h3>
+<p>Perancangan logo, palet warna, dan guideline brand agar bisnis kuliner Anda punya karakter yang kuat.</p>
+</div>
+<div class="card reveal" style="transition-delay:.16s">
+<div class="icon-box"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+<h3>Konsultasi Menu Engineering</h3>
+<p>Analisis performa menu untuk meningkatkan margin keuntungan tanpa mengorbankan kepuasan pelanggan.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="menu">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Menu Contoh</span>
+<h2>Inspirasi Menu yang Pernah Kami Kerjakan</h2>
+<p class="sec-sub">Setiap hidangan dirancang dengan komposisi visual dan tipografi yang membuat pelanggan mudah memilih.</p>
+</div>
+<div class="tabs reveal" id="tabs">
+<button class="tab active" data-filter="all">Semua</button>
+<button class="tab" data-filter="kopi">Kopi</button>
+<button class="tab" data-filter="nonkopi">Non-Kopi</button>
+<button class="tab" data-filter="utama">Makanan Utama</button>
+<button class="tab" data-filter="dessert">Dessert</button>
+<button class="tab" data-filter="snack">Snack</button>
+</div>
+<div class="menu-grid reveal" id="menuGrid">
+<div class="menu-card" data-category="kopi">
+<div class="mc-img mc-kopi"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Espresso Gayo</h4><span class="mc-price">22.000</span></div>
+<p>Espresso pekat dengan crema tebal dari biji single origin dataran tinggi Gayo.</p>
+<span class="mc-cat">Kopi</span>
+</div>
+</div>
+<div class="menu-card" data-category="kopi">
+<div class="mc-img mc-kopi"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Caramel Latte</h4><span class="mc-price">32.000</span></div>
+<p>Perpaduan espresso lembut, susu segar, dan karamel manis yang seimbang.</p>
+<span class="mc-cat">Kopi</span>
+</div>
+</div>
+<div class="menu-card" data-category="nonkopi">
+<div class="mc-img mc-nonkopi"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Matcha Cloud</h4><span class="mc-price">34.000</span></div>
+<p>Matcha premium Jepang dengan lapisan foam susu yang ringan dan creamy.</p>
+<span class="mc-cat">Non-Kopi</span>
+</div>
+</div>
+<div class="menu-card" data-category="nonkopi">
+<div class="mc-img mc-nonkopi"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Berry Sparkling</h4><span class="mc-price">28.000</span></div>
+<p>Soda buah beri segar dengan sentuhan mint dan es batu kristal.</p>
+<span class="mc-cat">Non-Kopi</span>
+</div>
+</div>
+<div class="menu-card" data-category="utama">
+<div class="mc-img mc-utama"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Nasi Goreng Signature</h4><span class="mc-price">45.000</span></div>
+<p>Nasi goreng rempah dengan telur mata sapi, sate ayam, dan kerupuk udang.</p>
+<span class="mc-cat">Makanan Utama</span>
+</div>
+</div>
+<div class="menu-card" data-category="utama">
+<div class="mc-img mc-utama"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Grilled Chicken Steak</h4><span class="mc-price">68.000</span></div>
+<p>Ayam panggang marinasi herbs dengan saus lada hitam dan kentang tumbuk.</p>
+<span class="mc-cat">Makanan Utama</span>
+</div>
+</div>
+<div class="menu-card" data-category="dessert">
+<div class="mc-img mc-dessert"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Basque Cheesecake</h4><span class="mc-price">38.000</span></div>
+<p>Cheesecake panggang dengan permukaan karamelisasi dan tekstur lembut.</p>
+<span class="mc-cat">Dessert</span>
+</div>
+</div>
+<div class="menu-card" data-category="dessert">
+<div class="mc-img mc-dessert"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Chocolate Lava</h4><span class="mc-price">36.000</span></div>
+<p>Kue cokelat hangat dengan lelehan ganache di tengah dan es krim vanila.</p>
+<span class="mc-cat">Dessert</span>
+</div>
+</div>
+<div class="menu-card" data-category="snack">
+<div class="mc-img mc-snack"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Truffle Fries</h4><span class="mc-price">30.000</span></div>
+<p>Kentang goreng renyah dengan minyak truffle, parmesan, dan parsley.</p>
+<span class="mc-cat">Snack</span>
+</div>
+</div>
+<div class="menu-card" data-category="snack">
+<div class="mc-img mc-snack"></div>
+<div class="mc-body">
+<div class="mc-top"><h4>Chicken Wings</h4><span class="mc-price">35.000</span></div>
+<p>Sayap ayam panggang dengan glazur madu pedas dan saus ranch.</p>
+<span class="mc-cat">Snack</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="harga">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Paket Harga</span>
+<h2>Investasi yang Jelas untuk Brand Anda</h2>
+<p class="sec-sub">Pilih paket sesuai skala bisnis Anda. Semua paket sudah termasuk konsultasi awal gratis.</p>
+</div>
+<div class="price-grid">
+<div class="price-card reveal">
+<h3>Basic</h3>
+<p class="price-desc">Cocok untuk cafe kecil yang baru memulai.</p>
+<div class="price">Rp 1.500.000</div>
+<small>sekali bayar</small>
+<div class="price-rule"></div>
+<ul class="feature-list">
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Desain 1 menu cetak 8 halaman</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>2 kali revisi desain</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>File siap cetak PDF &amp; AI</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Konsultasi via chat</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Pengerjaan 7 hari kerja</li>
+</ul>
+<a href="#kontak" class="btn btn-ghost">Pilih Paket</a>
+</div>
+<div class="price-card popular reveal" style="transition-delay:.08s">
+<span class="badge">Paling Populer</span>
+<h3>Pro</h3>
+<p class="price-desc">Pilihan favorit cafe dan resto berkembang.</p>
+<div class="price">Rp 3.500.000</div>
+<small>sekali bayar</small>
+<div class="price-rule"></div>
+<ul class="feature-list">
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Desain 2 menu cetak 16 halaman</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Menu digital QR Code</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>5 kali revisi desain</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Food photography 10 menu</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Konsultasi chat &amp; video call</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Pengerjaan 14 hari kerja</li>
+</ul>
+<a href="#kontak" class="btn btn-gold">Pilih Paket</a>
+</div>
+<div class="price-card reveal" style="transition-delay:.16s">
+<h3>Enterprise</h3>
+<p class="price-desc">Untuk jaringan resto dengan kebutuhan menyeluruh.</p>
+<div class="price">Rp 7.500.000</div>
+<small>sekali bayar</small>
+<div class="price-rule"></div>
+<ul class="feature-list">
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Desain menu unlimited halaman</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Menu digital QR Code + hosting</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Revisi tanpa batas</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Food photography 30 menu</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Branding &amp; logo resto</li>
+<li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Menu engineering &amp; project manager</li>
+</ul>
+<a href="#kontak" class="btn btn-ghost">Pilih Paket</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="alur">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Alur Kerja</span>
+<h2>Proses Sederhana, Hasil Maksimal</h2>
+<p class="sec-sub">Empat tahap yang transparan agar Anda selalu tahu posisi proyek menu Anda.</p>
+</div>
+<div class="steps">
+<div class="step reveal">
+<div class="step-num">01</div>
+<h4>Konsultasi</h4>
+<p>Kami mendengar konsep, target pasar, dan karakter brand kuliner Anda secara mendalam.</p>
+</div>
+<div class="step reveal" style="transition-delay:.08s">
+<div class="step-num">02</div>
+<h4>Desain</h4>
+<p>Tim desainer menyusun layout, tipografi, dan komposisi visual sesuai arahan Anda.</p>
+</div>
+<div class="step reveal" style="transition-delay:.16s">
+<div class="step-num">03</div>
+<h4>Revisi</h4>
+<p>Anda memberi masukan, kami menyempurnakan detail hingga sesuai ekspektasi.</p>
+</div>
+<div class="step reveal" style="transition-delay:.24s">
+<div class="step-num">04</div>
+<h4>Finalisasi &amp; Cetak</h4>
+<p>File final disiapkan dan kami bantu proses cetak hingga menu siap digunakan.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="portofolio">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Portofolio</span>
+<h2>Karya yang Sudah Kami Kerjakan</h2>
+<p class="sec-sub">Sebagian klien dari berbagai kota yang telah mempercayakan identitas menunya kepada D&amp;I.</p>
+</div>
+<div class="portfolio reveal">
+<div class="pf-item">
+<div class="pf-bg pf-1"></div>
+<div class="pf-overlay"><h4>Kopi Senja</h4><span>Bandung</span></div>
+</div>
+<div class="pf-item">
+<div class="pf-bg pf-2"></div>
+<div class="pf-overlay"><h4>Rasa Nusantara</h4><span>Yogyakarta</span></div>
+</div>
+<div class="pf-item">
+<div class="pf-bg pf-3"></div>
+<div class="pf-overlay"><h4>Bloom Bistro</h4><span>Jakarta</span></div>
+</div>
+<div class="pf-item">
+<div class="pf-bg pf-4"></div>
+<div class="pf-overlay"><h4>Manis Lab</h4><span>Surabaya</span></div>
+</div>
+<div class="pf-item">
+<div class="pf-bg pf-5"></div>
+<div class="pf-overlay"><h4>Urban Plate</h4><span>Semarang</span></div>
+</div>
+<div class="pf-item">
+<div class="pf-bg pf-6"></div>
+<div class="pf-overlay"><h4>Kedai Kayu</h4><span>Bali</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="dashboard">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Dashboard Klien</span>
+<h2>Pantau Proyek Menu Anda Secara Real-Time</h2>
+<p class="sec-sub">Setiap klien D&amp;I mendapatkan akses dashboard untuk memantau progres, revisi, dan jadwal cetak.</p>
+</div>
+<div class="dash reveal">
+<div class="dash-top">
+<div class="dash-brand">
+<span class="logo-mark">D<em>&amp;</em>I</span>
+<div>
+<b>Proyek Kopi Senja</b>
+<span>Paket Pro &middot; Mulai 12 Januari 2025</span>
+</div>
+</div>
+<div class="dash-user">
+<span class="avatar">AR</span>
+<div>
+<b>Andi Rahman</b>
+<span>Owner Kopi Senja</span>
+</div>
+</div>
+</div>
+<div class="dash-stats">
+<div class="stat"><span>Proyek Aktif</span><b>3</b></div>
+<div class="stat"><span>Menu Selesai</span><b>18</b><i>+4</i></div>
+<div class="stat"><span>Revisi Tersisa</span><b>2</b></div>
+<div class="stat"><span>Rating Klien</span><b>4.9</b></div>
+</div>
+<div class="dash-body">
+<div class="panel">
+<h4>Progres Proyek</h4>
+<div class="proj">
+<div class="proj-top"><span>Desain Menu Cetak</span><b>85%</b></div>
+<div class="bar"><i style="width:85%"></i></div>
+</div>
+<div class="proj">
+<div class="proj-top"><span>Menu Digital QR Code</span><b>60%</b></div>
+<div class="bar"><i style="width:60%"></i></div>
+</div>
+<div class="proj">
+<div class="proj-top"><span>Food Photography</span><b>40%</b></div>
+<div class="bar"><i style="width:40%"></i></div>
+</div>
+<div class="proj" style="margin-bottom:0">
+<div class="proj-top"><span>Finalisasi &amp; Cetak</span><b>15%</b></div>
+<div class="bar"><i style="width:15%"></i></div>
+</div>
+</div>
+<div class="panel">
+<h4>Aktivitas Terbaru</h4>
+<div class="act"><span class="dot"></span><div>Revisi halaman dessert disetujui<span>2 jam lalu</span></div></div>
+<div class="act"><span class="dot"></span><div>Foto 10 menu selesai diunggah<span>Kemarin</span></div></div>
+<div class="act"><span class="dot"></span><div>Draft menu digital dikirim<span>3 hari lalu</span></div></div>
+<div class="act"><span class="dot"></span><div>Jadwal cetak dikonfirmasi<span>5 hari lalu</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="testimoni">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Testimoni</span>
+<h2>Apa Kata Klien Kami</h2>
+<p class="sec-sub">Cerita nyata dari pemilik cafe dan resto yang telah bekerja sama dengan D&amp;I.</p>
+</div>
+<div class="t-viewport reveal">
+<div class="t-track" id="tTrack">
+<div class="t-slide">
+<div class="t-card">
+<div class="stars">
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+</div>
+<p>"Sejak menu kami didesain ulang oleh D&amp;I, penjualan menu signature naik hampir 40 persen. Tamu jadi lebih mudah memilih dan kesan cafe kami jauh lebih premium."</p>
+<div class="t-person">
+<span class="t-avatar av-1">AR</span>
+<div><b>Andi Rahman</b><span>Kopi Senja, Bandung</span></div>
+</div>
+</div>
+</div>
+<div class="t-slide">
+<div class="t-card">
+<div class="stars">
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+</div>
+<p>"Prosesnya rapi dan komunikatif. Tim D&amp;I memahami karakter resto kami tanpa perlu banyak penjelasan. Menu digital QR Code-nya sangat membantu saat harga harus cepat berubah."</p>
+<div class="t-person">
+<span class="t-avatar av-2">SW</span>
+<div><b>Sinta Wijaya</b><span>Rasa Nusantara, Yogyakarta</span></div>
+</div>
+</div>
+</div>
+<div class="t-slide">
+<div class="t-card">
+<div class="stars">
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+</div>
+<p>"Hasil food photography-nya luar biasa. Foto menu kami jadi jauh lebih menggoda dan konsisten dengan brand. Investasi yang benar-benar sepadan untuk bistro kami."</p>
+<div class="t-person">
+<span class="t-avatar av-3">DP</span>
+<div><b>Dimas Prakoso</b><span>Bloom Bistro, Jakarta</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="t-dots" id="tDots">
+<button class="t-dot active" aria-label="Slide 1"></button>
+<button class="t-dot" aria-label="Slide 2"></button>
+<button class="t-dot" aria-label="Slide 3"></button>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="faq">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">FAQ</span>
+<h2>Pertanyaan yang Sering Diajukan</h2>
+<p class="sec-sub">Belum menemukan jawaban? Hubungi kami langsung melalui WhatsApp atau email.</p>
+</div>
+<div class="faq-wrap reveal">
+<div class="faq-item">
+<button class="faq-q">Berapa lama proses pengerjaan desain menu?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Untuk paket Basic rata-rata 7 hari kerja, paket Pro 14 hari kerja, dan paket Enterprise 21 hingga 30 hari kerja tergantung jumlah halaman dan sesi foto. Waktu mulai dihitung setelah brief dan DP diterima.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">Apakah D&amp;I melayani klien dari luar kota?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Ya. Kami sudah menangani klien dari berbagai kota di Indonesia. Seluruh proses konsultasi, review desain, dan revisi dapat dilakukan secara online melalui video call dan email.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">Apakah saya mendapatkan file mentah desainnya?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Setiap paket sudah termasuk file siap cetak beresolusi tinggi. Untuk file kerja mentah dalam format AI atau PSD, tersedia pada paket Pro dan Enterprise.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">Berapa kali revisi yang saya dapatkan?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Paket Basic mendapat 2 kali revisi, paket Pro 5 kali revisi, dan paket Enterprise mendapatkan revisi tanpa batas selama lingkup proyek tidak berubah secara fundamental.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">Apakah harga sudah termasuk biaya cetak?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Harga paket hanya mencakup jasa desain, foto, dan penyiapan file cetak. Biaya cetak fisik dihitung terpisah sesuai jumlah halaman, jenis kertas, dan finishing yang dipilih.</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q">Bagaimana sistem pembayarannya?<span class="faq-icon"></span></button>
+<div class="faq-a"><p>Pembayaran dibagi dua tahap, yaitu 50 persen sebagai uang muka saat proyek dimulai dan 50 persen sisanya saat desain final disetujui sebelum file dikirim.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="kontak">
+<div class="container">
+<div class="sec-head reveal">
+<span class="eyebrow">Kontak</span>
+<h2>Mulai Proyek Menu Anda Hari Ini</h2>
+<p class="sec-sub">Isi formulir di bawah ini dan tim D&amp;I akan menghubungi Anda dalam 1x24 jam.</p>
+</div>
+<div class="contact-grid">
+<div class="form-card reveal">
+<form id="contactForm" novalidate>
+<div class="form-row">
+<div class="field">
+<label for="nama">Nama Lengkap</label>
+<input type="text" id="nama" placeholder="Nama Anda">
+<span class="err" id="err-nama"></span>
+</div>
+<div class="field">
+<label for="email">Email</label>
+<input type="text" id="email" placeholder="nama@email.com">
+<span class="err" id="err-email"></span>
+</div>
+</div>
+<div class="form-row">
+<div class="field">
+<label for="cafe">Nama Cafe / Resto</label>
+<input type="text" id="cafe" placeholder="Nama bisnis Anda">
+<span class="err" id="err-cafe"></span>
+</div>
+<div class="field">
+<label for="layanan">Jenis Layanan</label>
+<select id="layanan">
+<option value="">Pilih layanan</option>
+<option value="Desain Menu Cetak">Desain Menu Cetak</option>
+<option value="Menu Digital QR Code">Menu Digital QR Code</option>
+<option value="Food Photography">Food Photography</option>
+<option value="Menu Board & Signage">Menu Board &amp; Signage</option>
+<option value="Branding & Logo Resto">Branding &amp; Logo Resto</option>
+<option value="Konsultasi Menu Engineering">Konsultasi Menu Engineering</option>
+</select>
+<span class="err" id="err-layanan"></span>
+</div>
+</div>
+<div class="field">
+<label for="pesan">Pesan</label>
+<textarea id="pesan" placeholder="Ceritakan kebutuhan menu Anda"></textarea>
+<span class="err" id="err-pesan"></span>
+</div>
+<button type="submit" class="btn btn-gold" style="width:100%">Kirim Permintaan</button>
+<div class="form-note" id="formNote"></div>
+</form>
+</div>
+<div class="reveal">
+<div class="info-card">
+<div class="info-item">
+<span class="info-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.6A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg></span>
+<div><b>WhatsApp</b><span>+62 812 3456 7890</span></div>
+</div>
+<div class="info-item">
+<span class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+<div><b>Email</b><span>hello@dandi.id</span></div>
+</div>
+<div class="info-item">
+<span class="info-icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+<div><b>Alamat Studio</b><span>Jl. Senopati Raya No. 42, Jakarta Selatan</span></div>
+</div>
+<div class="info-item">
+<span class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+<div><b>Jam Operasional</b><span>Senin - Sabtu, 09.00 - 18.00 WIB</span></div>
+</div>
+</div>
+<div class="map">
+<div class="map-pin">
+<svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<span>Studio D&amp;I</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<a href="#beranda" class="logo"><span class="logo-mark">D<em>&amp;</em>I</span></a>
+<p>D&amp;I adalah studio kreatif yang berfokus pada perancangan menu custom untuk cafe dan resto di seluruh Indonesia.</p>
+<div class="socials">
+<a href="#beranda" class="social" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+<a href="#beranda" class="social" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+<a href="#beranda" class="social" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.6A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg></a>
+<a href="#beranda" class="social" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4"/></svg></a>
+</div>
+</div>
+<div>
+<h5>Navigasi</h5>
+<ul class="footer-links">
+<li><a href="#beranda">Beranda</a></li>
+<li><a href="#layanan">Layanan</a></li>
+<li><a href="#menu">Menu Contoh</a></li>
+<li><a href="#harga">Paket Harga</a></li>
+<li><a href="#dashboard">Dashboard</a></li>
+</ul>
+</div>
+<div>
+<h5>Layanan</h5>
+<ul class="footer-links">
+<li><a href="#layanan">Desain Menu Cetak</a></li>
+<li><a href="#layanan">Menu Digital QR</a></li>
+<li><a href="#layanan">Food Photography</a></li>
+<li><a href="#layanan">Branding Resto</a></li>
+<li><a href="#layanan">Menu Engineering</a></li>
+</ul>
+</div>
+<div>
+<h5>Newsletter</h5>
+<p style="color:var(--muted);font-size:13.8px;font-weight:300;margin-bottom:14px">Dapatkan tips desain menu dan promo terbaru dari D&amp;I.</p>
+<form class="news" id="newsForm">
+<input type="text" id="newsEmail" placeholder="Email Anda">
+<button type="submit">Kirim</button>
+</form>
+<span class="news-msg" id="newsMsg"></span>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2025 D&amp;I. All Rights Reserved.</p>
+<div>
+<a href="#beranda">Kebijakan Privasi</a>
+<a href="#beranda">Syarat &amp; Ketentuan</a>
+</div>
+</div>
+</div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Kembali ke atas">
+<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function(){
+const nav=document.getElementById('nav');
+const burger=document.getElementById('burger');
+const navMenu=document.getElementById('navMenu');
+const toTop=document.getElementById('toTop');
+
+burger.addEventListener('click',function(){
+burger.classList.toggle('active');
+navMenu.classList.toggle('open');
+});
+
+document.querySelectorAll('.nav-menu a').forEach(function(link){
+link.addEventListener('click',function(){
+burger.classList.remove('active');
+navMenu.classList.remove('open');
+});
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(function(link){
+link.addEventListener('click',function(e){
+const id=link.getAttribute('href');
+if(id.length>1){
+const target=document.querySelector(id);
+if(target){
+e.preventDefault();
+const top=target.getBoundingClientRect().top+window.pageYOffset-78;
+window.scrollTo({top:top,behavior:'smooth'});
+}
+}
+});
+});
+
+function onScroll(){
+const y=window.pageYOffset;
+if(y>40){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}
+if(y>520){toTop.classList.add('show');}else{toTop.classList.remove('show');}
+}
+window.addEventListener('scroll',onScroll);
+onScroll();
+
+toTop.addEventListener('click',function(){
+window.scrollTo({top:0,behavior:'smooth'});
+});
+
+const revealEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+const observer=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+entry.target.classList.add('show');
+observer.unobserve(entry.target);
+}
+});
+},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+revealEls.forEach(function(el){observer.observe(el);});
+}else{
+revealEls.forEach(function(el){el.classList.add('show');});
+}
+
+const tabs=document.querySelectorAll('.tab');
+const menuCards=document.querySelectorAll('.menu-card');
+tabs.forEach(function(tab){
+tab.addEventListener('click',function(){
+tabs.forEach(function(t){t.classList.remove('active');});
+tab.classList.add('active');
+const filter=tab.getAttribute('data-filter');
+menuCards.forEach(function(card){
+const cat=card.getAttribute('data-category');
+if(filter==='all'||filter===cat){
+card.classList.remove('hide');
+card.style.animation='none';
+void card.offsetWidth;
+card.style.animation='fadeCard .45s ease';
+}else{
+card.classList.add('hide');
+}
+});
+});
+});
+
+const faqItems=document.querySelectorAll('.faq-item');
+faqItems.forEach(function(item){
+const q=item.querySelector('.faq-q');
+const a=item.querySelector('.faq-a');
+q.addEventListener('click',function(){
+const isOpen=item.classList.contains('open');
+faqItems.forEach(function(other){
+other.classList.remove('open');
+other.querySelector('.faq-a').style.maxHeight=null;
+});
+if(!isOpen){
+item.classList.add('open');
+a.style.maxHeight=a.scrollHeight+'px';
+}
+});
+});
+
+const track=document.getElementById('tTrack');
+const dots=document.querySelectorAll('.t-dot');
+let current=0;
+let timer=null;
+
+function goTo(index){
+const total=dots.length;
+current=(index+total)%total;
+track.style.transform='translateX(-'+(current*100)+'%)';
+dots.forEach(function(d,i){
+if(i===current){d.classList.add('active');}else{d.classList.remove('active');}
+});
+}
+function startAuto(){
+if(timer){clearInterval(timer);}
+timer=setInterval(function(){goTo(current+1);},5000);
+}
+dots.forEach(function(dot,i){
+dot.addEventListener('click',function(){
+goTo(i);
+startAuto();
+});
+});
+startAuto();
+
+const form=document.getElementById('contactForm');
+const note=document.getElementById('formNote');
+
+function setError(id,message){
+const input=document.getElementById(id);
+const err=document.getElementById('err-'+id);
+if(message){
+err.textContent=message;
+input.classList.add('invalid');
+return false;
+}
+err.textContent='';
+input.classList.remove('invalid');
+return true;
+}
+
+['nama','email','cafe','layanan','pesan'].forEach(function(id){
+const el=document.getElementById(id);
+el.addEventListener('input',function(){setError(id,'');});
+el.addEventListener('change',function(){setError(id,'');});
+});
+
+form.addEventListener('submit',function(e){
+e.preventDefault();
+let valid=true;
+const nama=document.getElementById('nama').value.trim();
+const email=document.getElementById('email').value.trim();
+const cafe=document.getElementById('cafe').value.trim();
+const layanan=document.getElementById('layanan').value;
+const pesan=document.getElementById('pesan').value.trim();
+const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(nama.length<3){valid=setError('nama','Nama minimal 3 karakter')&&valid;}else{setError('nama','');}
+if(!emailPattern.test(email)){valid=setError('email','Masukkan alamat email yang valid')&&valid;}else{setError('email','');}
+if(cafe.length<2){valid=setError('cafe','Nama cafe atau resto wajib diisi')&&valid;}else{setError('cafe','');}
+if(layanan===''){valid=setError('layanan','Pilih salah satu jenis layanan')&&valid;}else{setError('layanan','');}
+if(pesan.length<10){valid=setError('pesan','Pesan minimal 10 karakter')&&valid;}else{setError('pesan','');}
+
+note.classList.remove('ok','bad');
+if(!valid){
+note.textContent='Mohon periksa kembali data yang belum lengkap.';
+note.classList.add('show','bad');
+return;
+}
+note.textContent='Terima kasih, '+nama+'. Permintaan Anda untuk '+cafe+' sudah kami terima dan akan direspons dalam 1x24 jam.';
+note.classList.add('show','ok');
+form.reset();
+});
+
+const newsForm=document.getElementById('newsForm');
+const newsMsg=document.getElementById('newsMsg');
+newsForm.addEventListener('submit',function(e){
+e.preventDefault();
+const val=document.getElementById('newsEmail').value.trim();
+const pattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!pattern.test(val)){
+newsMsg.textContent='Masukkan email yang valid.';
+newsMsg.style.color='#F87171';
+newsMsg.classList.add('show');
+return;
+}
+newsMsg.textContent='Terima kasih, email Anda berhasil terdaftar.';
+newsMsg.style.color='#D4AF37';
+newsMsg.classList.add('show');
+newsForm.reset();
+});
+
+const styleTag=document.createElement('style');
+styleTag.textContent='@keyframes fadeCard{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}';
+document.head.appendChild(styleTag);
+})();
+</script>
+</body>
+</html>
